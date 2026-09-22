@@ -1,124 +1,101 @@
-<p align="center">
-  <img src="admin/mqtt-plus.png" alt="MQTT Plus Logo" width="96">
-</p>
+![Logo](admin/mqtt-plus.png)
+# ioBroker.mqtt-plus
 
-<h1 align="center">ioBroker.mqtt-plus</h1>
+[![NPM version](https://img.shields.io/npm/v/iobroker.mqtt-plus.svg)](https://www.npmjs.com/package/iobroker.mqtt-plus)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.mqtt-plus.svg)](https://www.npmjs.com/package/iobroker.mqtt-plus)
+![Number of Installations](https://iobroker.live/badges/mqtt-plus-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/mqtt-plus-stable.svg)
 
-<p align="center">
-  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue"></a>
-  <img alt="Version" src="https://img.shields.io/badge/Version-1.6.1-informational">
-  <img alt="js-controller" src="https://img.shields.io/badge/js--controller-%3E%3D6.0.11-informational">
-  <img alt="Node" src="https://img.shields.io/badge/Node.js-%3E%3D18-informational">
-  <img alt="Tests" src="https://img.shields.io/badge/Tests-not%20implemented-yellow">
-</p>
+[![NPM](https://nodei.co/npm/iobroker.mqtt-plus.png?downloads=true)](https://nodei.co/npm/iobroker.mqtt-plus/)
 
-**mqtt-plus** ist ein Adapter für [ioBroker](https://www.iobroker.net/), der ioBroker-Datenpunkte
-mit dem Namespace eines bereits installierten MQTT-Client-Adapters (z. B. `mqtt.0`) spiegelt.
-Er legt die nötige Ordnerstruktur automatisch an, konvertiert Werte live, bietet ein
-abgesichertes Web-Dashboard für Backup/Restore und kann Daten zusätzlich per HTTP(S) an einen
-externen Webhook senden.
+**Tests:** ![Test and Release](https://github.com/Proxyyy87/ioBroker.mqtt-plus/workflows/Test%20and%20Release/badge.svg)
 
-`mqtt-plus` spricht selbst kein MQTT-Protokoll — Verbindung, QoS und `retain` zum eigentlichen
-Broker liegen vollständig beim separat installierten MQTT-Adapter, auf dessen Namespace
-`mqtt-plus` nur liest/schreibt.
+## mqtt-plus adapter for ioBroker
 
-## Funktionsumfang
+**mqtt-plus** mirrors ioBroker states into the namespace of an already installed MQTT client
+adapter (e.g. `mqtt.0`) and back. It creates the required folder structure automatically,
+converts values on the fly, provides a secured web dashboard for backup/restore and can
+additionally push the data to an external webhook via HTTP(S).
 
-* **Bidirektionale Spiegelung** — `out` (IOB → MQTT), `in` (MQTT → IOB) oder `both`.
-* **Topic-Modus pro Mapping** — `single` (ein gemeinsames Topic) oder `dual` nach üblicher
-  MQTT-Konvention (Status auf `<topic>`, Befehle auf `<topic>/set`).
-* **Typ-Konvertierung** — Runden, Bool ↔ Zahl oder automatische Erkennung des Zieltyps, in
-  beide Richtungen.
-* **Unverfälschte Zeitstempel** — der Spiegel übernimmt `ts`/`lc`/`q` der Quelle statt bei
-  jedem Kopiervorgang ein neues "jetzt" zu setzen. Inaktive Quellen (Alter oder Qualität)
-  werden erkannt und nicht künstlich frisch gehalten; drei Sync-Modi pro Mapping erlauben
-  Ausnahmen für selten meldende Sensoren oder bewusst immer frische Ziele.
-* **Force-Sync** — vergleicht Quelle und Ziel direkt und heilt nur echte Abweichungen, z. B.
-  nach einem Neustart oder Verbindungsabbruch.
-* **Ack-Filter pro Mapping** — für Datenpunkte ohne echtes Gerät dahinter
+`mqtt-plus` does not speak the MQTT protocol itself. Connection, QoS and `retain` towards the
+broker are handled entirely by the separately installed MQTT adapter; `mqtt-plus` only reads
+and writes states in its namespace.
+
+### Features
+
+* **Bidirectional mirroring** – `out` (ioBroker → MQTT), `in` (MQTT → ioBroker) or `both`.
+* **Topic mode per mapping** – `single` (one shared topic) or `dual` following the common MQTT
+  convention (state on `<topic>`, commands on `<topic>/set`).
+* **Type conversion** – rounding, boolean ↔ number or automatic detection of the target type,
+  in both directions.
+* **Unaltered timestamps** – the mirror takes over `ts`/`lc`/`q` of the source instead of
+  setting a new "now" on every copy. Inactive sources (age or quality) are detected and not kept
+  artificially fresh. Three sync modes per mapping allow exceptions for rarely reporting sensors
+  or targets that should always look fresh.
+* **Force sync** – compares source and target directly and only heals real deviations, e.g.
+  after a restart or a lost connection.
+* **Ack filter per mapping** – for states without a real device behind them
   (`0_userdata.0.*`, `alias.0.*`).
-* **Abgesichertes Web-Dashboard** — Basic-Auth mit Brute-Force-Sperre, optional HTTPS,
-  CSRF-/CORS-Schutz. Live-Status, JSON-Struktur-Vorschau, Backup & Restore.
-* **Remote Sync** — sendet die Daten zyklisch oder manuell per HTTP(S) POST an einen externen
-  Webhook, Payload frei per Template konfigurierbar, TLS-Prüfung immer aktiv (optionale eigene
-  CA für interne/selbstsignierte Ziele).
-* **Admin 7 Ready** — modernes `jsonConfig` mit responsiven Elementen.
+* **Secured web dashboard** – basic auth with brute-force lockout, optional HTTPS, CSRF/CORS
+  protection. Live status, JSON structure preview, backup & restore.
+* **Remote sync** – sends the data periodically or on demand via HTTP(S) POST to an external
+  webhook. The payload is freely configurable via template; TLS verification is always active
+  (an own CA can be configured for internal/self-signed targets).
 
-Die vollständige Konfigurationsanleitung inklusive aller Details zu Topic-Modus, Echo-Schutz,
-Sync-Modus und Remote-Sync-Templates steht in **[admin/readme.md](admin/readme.md)** — das ist
-derselbe Text, den ioBroker Admin auch in der Instanz-Ansicht anzeigt.
+### Requirements
 
-## Status der Aufnahme ins offizielle ioBroker-Repository
+* js-controller >= 6.0.11
+* Admin >= 7.6.17
+* Node.js >= 20
+* An installed and configured MQTT client adapter (e.g.
+  [ioBroker.mqtt](https://github.com/ioBroker/ioBroker.mqtt)) whose namespace is used as target
+  prefix.
 
-`mqtt-plus` ist derzeit **nicht** Teil des offiziellen ioBroker-`latest`-Repositories und noch
-nicht auf npm veröffentlicht — Installation läuft bis dahin ausschließlich direkt aus diesem
-Git-Repository (siehe [Installation](#installation)). Der offizielle
-[ioBroker Adapter-Checker](https://adapter-check.iobroker.in/) läuft bereits fehlerfrei bis auf
-die Prüfungen, die zwingend eine vorherige npm-Veröffentlichung voraussetzen. Bis zur Aufnahme
-fehlen noch:
+### Configuration
 
-1. `npm publish` — Veröffentlichung auf dem npm-Registry.
-2. Ein Pull Request gegen [ioBroker/ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories),
-   der den Adapter in die `latest`-Liste einträgt.
+The complete configuration guide (topic mode, echo protection, sync mode, remote sync
+templates) is available in German in [admin/readme.md](admin/readme.md) – this is the same text
+that ioBroker Admin shows in the instance view.
 
-## Installation
-
-Installation direkt aus diesem Repository:
-
-**Über die Admin-Oberfläche:**
-Instanzen → "+" → Reiter *Benutzerdefiniert* → GitHub-URL eintragen:
-
-```
-https://github.com/Proxyyy87/ioBroker.mqtt-plus/
-```
-
-**Über die Kommandozeile:**
-
-```bash
-iobroker url https://github.com/Proxyyy87/ioBroker.mqtt-plus/tarball/main mqtt-plus
-```
-
-Beim Installieren aus dem Git-Repository wird TypeScript automatisch kompiliert
-(`npm`-`prepare`-Skript) — ein manueller Build-Schritt ist nicht nötig.
-
-Vorausgesetzt wird ein bereits eingerichteter MQTT-Client-Adapter (z. B.
-[ioBroker.mqtt](https://github.com/ioBroker/ioBroker.mqtt)), dessen Namespace `mqtt-plus` als
-Ziel-Präfix verwendet.
-
-## Entwicklung
-
-```bash
-git clone https://github.com/Proxyyy87/ioBroker.mqtt-plus.git
-cd ioBroker.mqtt-plus
-npm install
-npm run build   # kompiliert src/*.ts nach build/
-npm run watch   # kompiliert bei Änderungen automatisch neu
-```
-
-**Wichtig für Pull Requests:** Der Ordner `build/` wird bewusst mitversioniert (nicht per
-`.gitignore` ausgeschlossen), weil der offizielle ioBroker Adapter-Checker die Datei `main`
-(`build/main.js`) direkt aus dem Repository lädt, ohne vorher `npm install`/`prepare`
-auszuführen. Nach jeder Änderung an `src/*.ts` also `npm run build` laufen lassen und den
-aktualisierten `build/`-Ordner mit committen.
-
-Technisch basiert der Adapter auf TypeScript, `@iobroker/adapter-core` und `axios`; das
-Web-Dashboard und der HTTP(S)-Server sind mit Bordmitteln von Node.js (`http`/`https`)
-umgesetzt, ohne zusätzliches Web-Framework. `@iobroker/testing` ist als devDependency
-vorbereitet, aktuell gibt es aber noch keine automatisierten Tests (siehe Test-Badge oben).
+The adapter is currently in the review process for the official ioBroker repository.
 
 ## Changelog
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ### **WORK IN PROGRESS**
+-->
+### **WORK IN PROGRESS**
+* (proxy) Web server retries several times if the port is still in use (e.g. during an update)
+  instead of shutting the instance down permanently
+* (proxy) Compact mode compatibility: removed `process.exit()`, adapter timers are used for delays
+* (proxy) Node.js 20 is required as minimum, dependencies updated
+* (proxy) Admin configuration validated against the official jsonConfig schema
+* (proxy) Translations for all supported languages, GitHub Actions workflow for tests and release
 
-Die vollständige Versionshistorie steht in [`io-package.json`](io-package.json) unter
-`common.news`. Die letzten Versionen:
+### 1.6.1 (2026-09-22)
+* (proxy) Per-mapping sync mode: "standard", "pass every update" (same value with a newer
+  timestamp is mirrored, for rarely changing sensors) or "force as before 1.6.0"
+* (proxy) Mapping settings are shown as accordion with two short rows per entry
 
-* **1.6.1** — Sync-Modus pro Mapping (`Standard`, `Jede Meldung weiterreichen`,
-  `Force wie vor 1.6.0`); Mapping-Einstellungen als aufklappbare Liste mit zwei kurzen Zeilen
-  pro Eintrag statt einer breiten Tabelle.
-* **1.6.0** — Zeitstempel (`ts`/`lc`/`q`) werden beim Spiegeln durchgereicht statt überschrieben;
-  Start, Update-Intervall und Force-Sync überspringen inaktive Quellen; Force-Sync schreibt nur
-  tatsächlich abweichende Werte; neue Remote-Sync-Platzhalter `%LC%`, `%ACK%`, `%Q%`.
-* **1.5.x** — Topic-Modus `dual` (Status/Befehl auf getrennten Topics) pro Mapping.
+## License
+MIT License
 
-## Lizenz
+Copyright (c) 2026 proxy <zumloeschen@ich.ms>
 
-MIT — siehe [LICENSE](LICENSE).
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -5,16 +5,43 @@
     "news": {
       "1.6.1": {
         "en": "Per-mapping sync mode: 'standard', 'pass every update' (same value with newer timestamp is mirrored, for rarely changing sensors) or 'force as before 1.6.0'; mapping settings now shown as accordion with two short rows per entry",
-        "de": "Sync-Modus pro Mapping: 'Standard', 'Jede Meldung weiterreichen' (gleicher Wert mit neuerem Zeitstempel wird gespiegelt, für selten wechselnde Sensoren) oder 'Force wie vor 1.6.0'; Mapping-Einstellungen jetzt als aufklappbare Liste mit zwei kurzen Zeilen pro Eintrag"
+        "de": "Sync-Modus pro Mapping: 'Standard', 'Jede Meldung weiterreichen' (gleicher Wert mit neuerem Zeitstempel wird gespiegelt, für selten wechselnde Sensoren) oder 'Force wie vor 1.6.0'; Mapping-Einstellungen jetzt als aufklappbare Liste mit zwei kurzen Zeilen pro Eintrag",
+        "ru": "Режим синхронизации для каждого сопоставления: «стандартный», «передавать каждое обновление» (одинаковое значение с более новой меткой времени тоже зеркалируется — для редко меняющихся датчиков) или «принудительно, как до 1.6.0»; настройки сопоставлений теперь отображаются в виде аккордеона с двумя короткими строками на запись",
+        "pt": "Modo de sincronização por mapeamento: 'padrão', 'repassar cada atualização' (o mesmo valor com carimbo de data/hora mais recente é espelhado, para sensores que mudam raramente) ou 'forçar como antes da 1.6.0'; as configurações de mapeamento agora são exibidas como acordeão com duas linhas curtas por entrada",
+        "nl": "Synchronisatiemodus per mapping: 'standaard', 'elke update doorgeven' (dezelfde waarde met een nieuwere tijdstempel wordt gespiegeld, voor zelden veranderende sensoren) of 'forceren zoals vóór 1.6.0'; mapping-instellingen worden nu als accordeon met twee korte regels per item getoond",
+        "fr": "Mode de synchronisation par mappage : « standard », « transmettre chaque mise à jour » (une même valeur avec un horodatage plus récent est répliquée, pour les capteurs qui changent rarement) ou « forcer comme avant la 1.6.0 » ; les paramètres de mappage s'affichent désormais en accordéon avec deux lignes courtes par entrée",
+        "it": "Modalità di sincronizzazione per mappatura: 'standard', 'inoltra ogni aggiornamento' (lo stesso valore con un timestamp più recente viene replicato, per sensori che cambiano raramente) o 'forza come prima della 1.6.0'; le impostazioni di mappatura sono ora mostrate come fisarmonica con due righe brevi per voce",
+        "es": "Modo de sincronización por asignación: 'estándar', 'transmitir cada actualización' (el mismo valor con una marca de tiempo más reciente se replica, para sensores que cambian raramente) o 'forzar como antes de la 1.6.0'; la configuración de las asignaciones se muestra ahora como acordeón con dos filas cortas por entrada",
+        "pl": "Tryb synchronizacji dla każdego mapowania: „standardowy”, „przekazuj każdą aktualizację” (ta sama wartość z nowszym znacznikiem czasu jest odzwierciedlana — dla rzadko zmieniających się czujników) lub „wymuszony jak przed 1.6.0”; ustawienia mapowań są teraz wyświetlane jako akordeon z dwoma krótkimi wierszami na wpis",
+        "uk": "Режим синхронізації для кожного зіставлення: «стандартний», «передавати кожне оновлення» (однакове значення з новішою міткою часу теж дзеркалюється — для датчиків, що рідко змінюються) або «примусово, як до 1.6.0»; налаштування зіставлень тепер відображаються як акордеон із двома короткими рядками на запис",
+        "zh-cn": "每个映射可单独设置同步模式：“标准”、“传递每次更新”（值相同但时间戳更新时也会镜像，适用于很少变化的传感器）或“强制（与 1.6.0 之前相同）”；映射设置现以折叠面板显示，每个条目两行"
       }
     },
     "titleLang": {
       "en": "MQTT Plus Bridge",
-      "de": "MQTT Plus-Brücke"
+      "de": "MQTT Plus-Brücke",
+      "ru": "Мост MQTT Plus",
+      "pt": "Ponte MQTT Plus",
+      "nl": "MQTT Plus-brug",
+      "fr": "Pont MQTT Plus",
+      "it": "Ponte MQTT Plus",
+      "es": "Puente MQTT Plus",
+      "pl": "Most MQTT Plus",
+      "uk": "Міст MQTT Plus",
+      "zh-cn": "MQTT Plus 桥接"
     },
     "desc": {
       "en": "Bridge between ioBroker states and MQTT with JSON export and Remote Sync",
-      "de": "Brücke zwischen ioBroker-Zuständen und MQTT mit JSON-Export und Remote-Sync"
+      "de": "Brücke zwischen ioBroker-Zuständen und MQTT mit JSON-Export und Remote-Sync",
+      "ru": "Мост между состояниями ioBroker и MQTT с экспортом в JSON и удалённой синхронизацией",
+      "pt": "Ponte entre estados do ioBroker e MQTT com exportação JSON e sincronização remota",
+      "nl": "Brug tussen ioBroker-states en MQTT met JSON-export en externe synchronisatie",
+      "fr": "Pont entre les états ioBroker et MQTT avec export JSON et synchronisation distante",
+      "it": "Ponte tra gli stati di ioBroker e MQTT con esportazione JSON e sincronizzazione remota",
+      "es": "Puente entre los estados de ioBroker y MQTT con exportación JSON y sincronización remota",
+      "pl": "Most między stanami ioBroker a MQTT z eksportem JSON i zdalną synchronizacją",
+      "uk": "Міст між станами ioBroker та MQTT з експортом у JSON і віддаленою синхронізацією",
+      "zh-cn": "ioBroker 状态与 MQTT 之间的桥接，支持 JSON 导出和远程同步"
     },
     "authors": [
       "proxy <zumloeschen@ich.ms>"
@@ -51,7 +78,12 @@
     "extIcon": "https://raw.githubusercontent.com/Proxyyy87/ioBroker.mqtt-plus/main/admin/mqtt-plus.png",
     "localLinks": {
       "_default": "http://%ip%:%native_serverPort%"
-    }
+    },
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
+    ]
   },
   "native": {
     "targetBasePath": "mqtt.0.",

@@ -1,4 +1,5 @@
 {
+  "i18n": false,
   "type": "tabs",
   "items": {
     "main": {
@@ -291,18 +292,18 @@
         "dashboardTlsCert": {
           "type": "text",
           "label": "TLS-Zertifikat (PEM, optional)",
-          "multiline": true,
-          "rows": 6,
           "sm": 6,
-          "help": "Mit TLS-Key zusammen gesetzt: Dashboard läuft über HTTPS statt HTTP, Zugangsdaten werden verschlüsselt übertragen."
+          "help": "Mit TLS-Key zusammen gesetzt: Dashboard läuft über HTTPS statt HTTP, Zugangsdaten werden verschlüsselt übertragen.",
+          "minRows": 6,
+          "maxRows": 12
         },
         "dashboardTlsKey": {
           "type": "text",
           "label": "TLS-Key (PEM, optional)",
-          "multiline": true,
-          "rows": 6,
           "sm": 6,
-          "help": "Privater Schlüssel zum obigen Zertifikat. Leer lassen = HTTP (unverschlüsselt). Wird verschlüsselt gespeichert (encryptedNative)."
+          "help": "Privater Schlüssel zum obigen Zertifikat. Leer lassen = HTTP (unverschlüsselt). Wird verschlüsselt gespeichert (encryptedNative).",
+          "minRows": 6,
+          "maxRows": 12
         }
       }
     },
@@ -333,10 +334,10 @@
         "syncCaCert": {
           "type": "text",
           "label": "Vertrauenswürdiges Zertifikat / CA (PEM, optional)",
-          "multiline": true,
-          "rows": 6,
           "sm": 12,
-          "help": "Nur bei selbstsigniertem/internem Zertifikat der Sync-Gegenstelle nötig. Leer lassen bei öffentlichem Zertifikat (Standard-Systemvertrauensstore wird genutzt)."
+          "help": "Nur bei selbstsigniertem/internem Zertifikat der Sync-Gegenstelle nötig. Leer lassen bei öffentlichem Zertifikat (Standard-Systemvertrauensstore wird genutzt).",
+          "minRows": 6,
+          "maxRows": 12
         },
         "checkSync": {
           "type": "sendTo",
@@ -346,11 +347,11 @@
           "variant": "contained"
         },
         "lastSyncStatus": {
-          "type": "text",
+          "type": "state",
           "oid": "info.lastSyncStatus",
           "label": "Letzter Status / Fehlercode",
-          "sm": 8,
-          "readOnly": true
+          "readOnly": true,
+          "sm": 8
         }
       }
     }

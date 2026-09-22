@@ -7,11 +7,11 @@
 
 import * as utils from "@iobroker/adapter-core";
 import axios from "axios";
-import * as http from "http";
-import * as https from "https";
-import * as crypto from "crypto";
-import * as net from "net";
-import * as os from "os";
+import * as http from "node:http";
+import * as https from "node:https";
+import * as crypto from "node:crypto";
+import * as net from "node:net";
+import * as os from "node:os";
 
 // Einmalig aus package.json gelesen, statt an mehreren Stellen (User-Agent, info.version)
 // manuell zu pflegen und bei jedem Versionssprung zu vergessen.
@@ -103,6 +103,9 @@ class MqttPlus extends utils.Adapter {
     // Sicherheitsnetz für pendingWrites: falls auf einen eigenen Schreibvorgang nie ein
     // (echtes oder Echo-)Ereignis folgt, verfällt der Merker statt für immer liegenzubleiben.
     private static readonly PENDING_WRITE_TTL_MS = 10_000;
+    // Port-Konflikt beim Start: so oft neu versuchen, bevor der Adapter aufgibt.
+    private static readonly LISTEN_ATTEMPTS = 6;
+    private static readonly LISTEN_RETRY_MS = 5_000;
     // Standard-Aktualitätsgrenze, falls in der Instanz (z.B. nach Update von <1.6.0) nichts gesetzt ist.
     private static readonly DEFAULT_STALE_AFTER_MIN = 1440; // 24 h
 
@@ -156,8 +159,10 @@ class MqttPlus extends utils.Adapter {
         this.on("message", this.onMessage.bind(this));
     }
 
+    // this.delay() statt eines eigenen setTimeout: wird beim Unload vom Adapter automatisch
+    // aufgeräumt (Voraussetzung für Compact Mode).
     private sleep(ms: number): Promise<void> {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        return this.delay(ms);
     }
 
     private convertMqttPathToIobrokerId(mqttPath: string): string {
@@ -1512,22 +1517,33 @@ class MqttPlus extends utils.Adapter {
             });
 
             const bindHost = this.config.bindHost || "0.0.0.0";
-            this.httpServer.listen(port, bindHost, () => {
+            // Bei einem Update/Neustart hält der alte Prozess den Port oft noch einige Sekunden.
+            // Deshalb erst mehrfach neu versuchen, statt sofort (und dauerhaft) aufzugeben.
+            let listenAttempts = 0;
+            const tryListen = () => {
+                listenAttempts++;
+                this.httpServer!.listen(port, bindHost);
+            };
+            this.httpServer.on("listening", () => {
                 this.log.info(`Dashboard Webserver läuft auf ${usesTls ? "https" : "http"}://${bindHost}:${port}`);
                 this.setState("info.connection", true, true);
             });
             this.httpServer.on("error", (e: any) => {
+                if (e.code === "EADDRINUSE" && listenAttempts < MqttPlus.LISTEN_ATTEMPTS && !this.unloaded) {
+                    this.log.warn(`Port ${port} ist noch belegt - neuer Versuch ${listenAttempts + 1}/${MqttPlus.LISTEN_ATTEMPTS} in ${MqttPlus.LISTEN_RETRY_MS / 1000} s.`);
+                    this.setTimeout(tryListen, MqttPlus.LISTEN_RETRY_MS);
+                    return;
+                }
                 this.log.error(`Webserver Fehler: ${e.message}`);
                 this.setState("info.connection", false, true);
                 if (e.code === "EADDRINUSE") {
-                    this.log.error(`Port ${port} ist bereits belegt - Adapter wird beendet, damit er nicht "grün" ohne Dashboard weiterläuft.`);
-                    if (typeof (this as any).terminate === "function") {
-                        (this as any).terminate("EADDRINUSE", 11);
-                    } else {
-                        process.exit(1);
-                    }
+                    this.log.error(`Port ${port} ist dauerhaft belegt - Adapter wird beendet, damit er nicht "grün" ohne Dashboard weiterläuft.`);
+                    // terminate() statt eines harten Prozess-Endes: beendet im Compact Mode nur
+                    // diese Instanz, nicht den gesamten Host-Prozess.
+                    this.terminate("EADDRINUSE", utils.EXIT_CODES.ADAPTER_REQUESTED_TERMINATION);
                 }
             });
+            tryListen();
         } catch (e: any) {
             this.log.error(`Konnte Webserver nicht starten: ${e.message}`);
             this.setState("info.connection", false, true);
@@ -1697,7 +1713,7 @@ class MqttPlus extends utils.Adapter {
 
         loadStatus();
         loadJson();
-        setInterval(loadStatus, 5000);
+        window.setInterval(loadStatus, 5000);
     </script>
 </body>
 </html>
