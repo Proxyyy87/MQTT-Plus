@@ -1,6 +1,6 @@
 # ioBroker.mqtt-plus
 
-![Logo](admin/mqtt-plus.png)
+![Logo](mqtt-plus.png)
 
 **Tests:** ![Test Status](https://img.shields.io/badge/Tests-not%20implemented-yellow)
 **Lizenz:** ![License](https://img.shields.io/badge/License-MIT-blue)
