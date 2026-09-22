@@ -6,30 +6,6 @@
       "1.6.1": {
         "en": "Per-mapping sync mode: 'standard', 'pass every update' (same value with newer timestamp is mirrored, for rarely changing sensors) or 'force as before 1.6.0'; mapping settings now shown as accordion with two short rows per entry",
         "de": "Sync-Modus pro Mapping: 'Standard', 'Jede Meldung weiterreichen' (gleicher Wert mit neuerem Zeitstempel wird gespiegelt, für selten wechselnde Sensoren) oder 'Force wie vor 1.6.0'; Mapping-Einstellungen jetzt als aufklappbare Liste mit zwei kurzen Zeilen pro Eintrag"
-      },
-      "1.6.0": {
-        "en": "Timestamps are no longer falsified by copying: source ts/lc/q are passed through to the mirror; start, cycle and force-sync skip inactive sources (configurable staleness limit, quality check); force-sync only writes values that actually differ; cycle-sync respects the ack filter; new remote-sync placeholders %LC%, %ACK%, %Q% and option to skip inactive sources",
-        "de": "Zeitstempel werden durch das Kopieren nicht mehr verfälscht: ts/lc/q der Quelle werden auf den Spiegel übernommen; Start, Cycle und Force-Sync überspringen inaktive Quellen (einstellbare Aktualitätsgrenze, Qualitätsprüfung); Force-Sync schreibt nur tatsächlich abweichende Werte; Cycle-Sync beachtet den Ack-Filter; neue Remote-Sync-Platzhalter %LC%, %ACK%, %Q% sowie Option zum Weglassen inaktiver Quellen"
-      },
-      "1.5.1": {
-        "en": "Dual mode now accepts commands on the /set topic regardless of the ack flag (MQTT adapters forward /set as unconfirmed command); clarified that the topic mode only affects the MQTT side",
-        "de": "Dual-Modus nimmt Befehle auf dem /set-Topic jetzt unabhängig vom ack-Flag an (MQTT-Adapter reichen /set als unbestätigten Befehl weiter); klargestellt, dass der Topic-Modus nur die MQTT-Seite betrifft"
-      },
-      "1.5.0": {
-        "en": "Per-mapping topic mode: 'dual' sends status on <topic> and receives commands on <topic>/set (suffix configurable); stale commands are no longer replayed on start or force-sync",
-        "de": "Topic-Modus pro Mapping: 'dual' meldet den Status auf <topic> und empfängt Befehle auf <topic>/set (Suffix konfigurierbar); alte Befehle werden bei Start und Force-Sync nicht mehr wiederholt"
-      },
-      "1.4.0": {
-        "en": "Fixed echo protection swallowing genuine device confirmations on 'both' mappings, added HTTPS dashboard option, persistent auth lockout, retryable-error handling, type coercion for command direction, tolerant value comparison",
-        "de": "Fehler behoben, bei dem echte Gerätebestätigungen bei 'both'-Mappings fälschlich als Echo verworfen wurden; optionales HTTPS fürs Dashboard, persistente Login-Sperre, differenziertes Retry-Verhalten, Typ-Koerzion auch in Befehlsrichtung, toleranter Wertevergleich"
-      },
-      "1.3.4": {
-        "en": "Remote Sync: reconstructs missing line breaks around BEGIN/END markers in pasted CA certificates (fixes single-line PEM 'no start line' errors)",
-        "de": "Remote-Sync: rekonstruiert fehlende Zeilenumbrüche um BEGIN/END-Markierungen in eingefügten CA-Zertifikaten (behebt 'no start line'-Fehler bei einzeiligen PEMs)"
-      },
-      "1.3.3": {
-        "en": "Remote Sync: auto-normalizes look-alike Unicode dashes/non-breaking spaces in pasted CA certificates (fixes 'no start line' PEM parse errors)",
-        "de": "Remote-Sync: normalisiert optisch identische Unicode-Bindestriche/geschützte Leerzeichen in eingefügten CA-Zertifikaten automatisch (behebt 'no start line'-PEM-Parse-Fehler)"
       }
     },
     "titleLang": {
