@@ -30,30 +30,6 @@
       "1.3.3": {
         "en": "Remote Sync: auto-normalizes look-alike Unicode dashes/non-breaking spaces in pasted CA certificates (fixes 'no start line' PEM parse errors)",
         "de": "Remote-Sync: normalisiert optisch identische Unicode-Bindestriche/geschützte Leerzeichen in eingefügten CA-Zertifikaten automatisch (behebt 'no start line'-PEM-Parse-Fehler)"
-      },
-      "1.3.2": {
-        "en": "Remote Sync: logs the parsed CA certificate fingerprint for diagnostics, disables proxy env vars for the sync request",
-        "de": "Remote-Sync: loggt den Fingerabdruck des eingelesenen CA-Zertifikats zur Diagnose, deaktiviert Proxy-Umgebungsvariablen für den Sync-Request"
-      },
-      "1.3.1": {
-        "en": "adds visible info.version state and diagnostic logging for the remote-sync CA certificate",
-        "de": "sichtbarer info.version-State sowie Diagnose-Logging für das Remote-Sync-CA-Zertifikat hinzugefügt"
-      },
-      "1.3.0": {
-        "en": "security hardening (dashboard auth, CSRF/CORS, TLS pinning), deterministic echo protection, batched sync, configurable ack filter",
-        "de": "Sicherheitshärtung (Dashboard-Login, CSRF/CORS, TLS-Pinning), deterministischer Echo-Schutz, gebündelter Sync, konfigurierbarer Ack-Filter"
-      },
-      "1.2.2": {
-        "en": "added force-sync interval to heal split-brain states automatically",
-        "de": "Zwangssynchronisations-Intervall hinzugefügt, um asynchrone Zustände (Split-Brain) automatisch zu heilen"
-      },
-      "1.2.1": {
-        "en": "added timestamp validation to strictly prevent hardware echoes",
-        "de": "Zeitstempel-Validierung hinzugefügt, um Hardware-Echos strikt zu blockieren"
-      },
-      "1.2.0": {
-        "en": "performance update with lookup maps for instant reaction and no lag",
-        "de": "Performance-Update mit Lookup-Maps für sofortige Reaktion ohne Verzögerung"
       }
     },
     "titleLang": {
@@ -87,7 +63,6 @@
     "connectionType": "local",
     "dataSource": "poll",
     "messagebox": true,
-    "localLink": "http://%ip%:%native_serverPort%",
     "adminUI": {
       "config": "json"
     },
@@ -96,7 +71,11 @@
         "js-controller": ">=6.0.11"
       }
     ],
-    "tier": 3
+    "tier": 3,
+    "extIcon": "https://raw.githubusercontent.com/Proxyyy87/MQTT-Plus/main/admin/mqtt-plus.png",
+    "localLinks": {
+      "_default": "http://%ip%:%native_serverPort%"
+    }
   },
   "native": {
     "targetBasePath": "mqtt.0.",

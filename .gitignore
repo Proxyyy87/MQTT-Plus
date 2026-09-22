@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Build output (wird per "prepare"-Skript beim Installieren automatisch erzeugt)
-build/
+# Build output wird bewusst mitversioniert (build/main.js) - der offizielle ioBroker
+# Adapter-Checker lädt "main" direkt aus dem Repo, ohne npm install/prepare auszuführen.
 *.tsbuildinfo
 
 # Gepackte Adapter-Archive / Backups (Historie übernimmt git)
