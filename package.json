@@ -7,7 +7,7 @@
   "homepage": "https://github.com/Proxyyy87/ioBroker.mqtt-plus#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Proxyyy87/ioBroker.mqtt-plus.git"
+    "url": "git+https://github.com/Proxyyy87/ioBroker.mqtt-plus.git"
   },
   "bugs": {
     "url": "https://github.com/Proxyyy87/ioBroker.mqtt-plus/issues"
