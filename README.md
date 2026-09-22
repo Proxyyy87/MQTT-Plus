@@ -45,8 +45,8 @@ and writes states in its namespace.
 ### Requirements
 
 * js-controller >= 6.0.11
-* Admin >= 7.6.17
-* Node.js >= 20
+* Admin >= 7.6.20
+* Node.js >= 22
 * An installed and configured MQTT client adapter (e.g.
   [ioBroker.mqtt](https://github.com/ioBroker/ioBroker.mqtt)) whose namespace is used as target
   prefix.
@@ -64,11 +64,11 @@ The adapter is currently in the review process for the official ioBroker reposit
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.6.2 (2026-09-22)
 * (proxy) Web server retries several times if the port is still in use (e.g. during an update)
   instead of shutting the instance down permanently
 * (proxy) Compact mode compatibility: removed `process.exit()`, adapter timers are used for delays
-* (proxy) Node.js 20 is required as minimum, dependencies updated
+* (proxy) Node.js 22 is required as minimum, dependencies updated
 * (proxy) Admin configuration validated against the official jsonConfig schema
 * (proxy) Translations for all supported languages, GitHub Actions workflow for tests and release
 

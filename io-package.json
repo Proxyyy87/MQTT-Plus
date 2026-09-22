@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "mqtt-plus",
-    "version": "1.6.1",
+    "version": "1.6.2",
     "news": {
+      "1.6.2": {
+        "en": "Web server retries if the port is still in use instead of shutting down permanently; compact mode compatibility (no process exit, adapter timers); Node.js 22 required; dependencies updated; translations for all languages",
+        "de": "Webserver versucht es bei belegtem Port erneut, statt sich dauerhaft zu beenden; Compact-Mode-kompatibel (kein Prozess-Exit, Adapter-Timer); Node.js 22 erforderlich; Abhängigkeiten aktualisiert; Übersetzungen für alle Sprachen",
+        "ru": "Веб-сервер повторяет попытку, если порт ещё занят, вместо окончательного завершения работы; совместимость с компактным режимом (без завершения процесса, таймеры адаптера); требуется Node.js 22; зависимости обновлены; переводы на все языки",
+        "pt": "O servidor web tenta novamente se a porta ainda estiver em uso, em vez de encerrar permanentemente; compatibilidade com o modo compacto (sem encerrar o processo, temporizadores do adaptador); Node.js 22 necessário; dependências atualizadas; traduções para todos os idiomas",
+        "nl": "Webserver probeert het opnieuw als de poort nog bezet is, in plaats van permanent te stoppen; compatibel met compacte modus (geen procesafsluiting, adapter-timers); Node.js 22 vereist; afhankelijkheden bijgewerkt; vertalingen voor alle talen",
+        "fr": "Le serveur web réessaie si le port est encore occupé au lieu de s'arrêter définitivement ; compatibilité avec le mode compact (pas d'arrêt du processus, minuteries de l'adaptateur) ; Node.js 22 requis ; dépendances mises à jour ; traductions pour toutes les langues",
+        "it": "Il server web riprova se la porta è ancora occupata invece di arrestarsi definitivamente; compatibilità con la modalità compatta (nessuna uscita dal processo, timer dell'adattatore); richiesto Node.js 22; dipendenze aggiornate; traduzioni per tutte le lingue",
+        "es": "El servidor web lo reintenta si el puerto sigue ocupado en lugar de detenerse de forma permanente; compatibilidad con el modo compacto (sin salida del proceso, temporizadores del adaptador); se requiere Node.js 22; dependencias actualizadas; traducciones para todos los idiomas",
+        "pl": "Serwer WWW ponawia próbę, jeśli port jest nadal zajęty, zamiast trwale się wyłączać; zgodność z trybem kompaktowym (bez zamykania procesu, timery adaptera); wymagany Node.js 22; zaktualizowane zależności; tłumaczenia na wszystkie języki",
+        "uk": "Вебсервер повторює спробу, якщо порт ще зайнятий, замість остаточного завершення роботи; сумісність із компактним режимом (без завершення процесу, таймери адаптера); потрібен Node.js 22; залежності оновлено; переклади всіма мовами",
+        "zh-cn": "端口仍被占用时，Web 服务器会重试，而不是永久停止；兼容紧凑模式（不再退出进程，使用适配器定时器）；需要 Node.js 22；依赖已更新；支持所有语言的翻译"
+      },
       "1.6.1": {
         "en": "Per-mapping sync mode: 'standard', 'pass every update' (same value with newer timestamp is mirrored, for rarely changing sensors) or 'force as before 1.6.0'; mapping settings now shown as accordion with two short rows per entry",
         "de": "Sync-Modus pro Mapping: 'Standard', 'Jede Meldung weiterreichen' (gleicher Wert mit neuerem Zeitstempel wird gespiegelt, für selten wechselnde Sensoren) oder 'Force wie vor 1.6.0'; Mapping-Einstellungen jetzt als aufklappbare Liste mit zwei kurzen Zeilen pro Eintrag",
@@ -81,7 +94,7 @@
     },
     "globalDependencies": [
       {
-        "admin": ">=7.6.17"
+        "admin": ">=7.6.20"
       }
     ]
   },
@@ -192,7 +205,7 @@
       "common": {
         "name": "Adapter-Version",
         "type": "string",
-        "role": "info.version",
+        "role": "text",
         "read": true,
         "write": false
       },

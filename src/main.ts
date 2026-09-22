@@ -347,7 +347,7 @@ class MqttPlus extends utils.Adapter {
         });
         await this.setObjectNotExistsAsync("info.version", {
             type: "state",
-            common: { name: "Adapter-Version", type: "string", role: "info.version", read: true, write: false },
+            common: { name: "Adapter-Version", type: "string", role: "text", read: true, write: false },
             native: {},
         });
         await this.setObjectNotExistsAsync("info.authLockouts", {

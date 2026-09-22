@@ -12,26 +12,42 @@
           "label": "MQTT Ziel-Pfad (Prefix)",
           "default": "mqtt.0.",
           "sm": 6,
-          "help": "Muss auf . enden! Bsp: mqtt.0."
+          "help": "Muss auf . enden! Bsp: mqtt.0.",
+          "xs": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "updateIntervalSec": {
           "type": "number",
           "label": "Update Intervall (s)",
           "default": 30,
-          "sm": 3
+          "sm": 3,
+          "xs": 12,
+          "md": 3,
+          "lg": 3,
+          "xl": 3
         },
         "logTransfers": {
           "type": "checkbox",
           "label": "Log Aktiv",
           "default": true,
-          "sm": 3
+          "sm": 3,
+          "xs": 12,
+          "md": 3,
+          "lg": 3,
+          "xl": 3
         },
         "forceSyncIntervalMin": {
           "type": "number",
           "label": "Force-Sync Intervall (Min, 0 = aus)",
           "default": 5,
           "sm": 3,
-          "help": "Vergleicht Quelle und Ziel und schreibt nur Abweichungen - Mappings im Sync-Modus \"Force\" werden immer neu geschrieben."
+          "help": "Vergleicht Quelle und Ziel und schreibt nur Abweichungen - Mappings im Sync-Modus \"Force\" werden immer neu geschrieben.",
+          "xs": 12,
+          "md": 3,
+          "lg": 3,
+          "xl": 3
         },
         "staleAfterMin": {
           "type": "number",
@@ -39,7 +55,11 @@
           "default": 1440,
           "min": 0,
           "sm": 3,
-          "help": "Quellen, deren letztes Update älter ist (oder mit Qualität q≠0), werden bei Start, Update-Intervall und Force-Sync nicht gespiegelt - ein inaktives Gerät wird so auf der Zielseite nicht wieder \"frisch\". Echte Änderungs-Ereignisse gehen immer durch. Standard: 1440 (24 h)."
+          "help": "Quellen, deren letztes Update älter ist (oder mit Qualität q≠0), werden bei Start, Update-Intervall und Force-Sync nicht gespiegelt - ein inaktives Gerät wird so auf der Zielseite nicht wieder \"frisch\". Echte Änderungs-Ereignisse gehen immer durch. Standard: 1440 (24 h).",
+          "xs": 12,
+          "md": 3,
+          "lg": 3,
+          "xl": 3
         },
         "mappings": {
           "type": "accordion",
@@ -241,7 +261,11 @@
               ],
               "help": "Siehe Hilfe: Sync-Modus"
             }
-          ]
+          ],
+          "xs": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         }
       }
     },
@@ -253,13 +277,21 @@
         "webInfo": {
           "type": "staticText",
           "text": "Der Adapter stellt ein Web-Interface für Backup/Restore und Status bereit. Nutzen Sie den Link in der Instanz-Übersicht.",
-          "sm": 12
+          "sm": 12,
+          "xs": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "serverPort": {
           "type": "number",
           "label": "Webserver Port",
           "default": 8095,
-          "sm": 4
+          "sm": 4,
+          "xs": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "bindHost": {
           "type": "select",
@@ -275,19 +307,31 @@
               "value": "127.0.0.1",
               "label": "Nur lokal (127.0.0.1)"
             }
-          ]
+          ],
+          "xs": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "dashboardUser": {
           "type": "text",
           "label": "Dashboard Benutzername",
           "default": "admin",
-          "sm": 4
+          "sm": 4,
+          "xs": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "dashboardPassword": {
           "type": "password",
           "label": "Dashboard Passwort",
           "sm": 4,
-          "help": "Leer lassen = kein Zugangsschutz (nicht empfohlen). Wird per HTTP Basic-Auth abgefragt."
+          "help": "Leer lassen = kein Zugangsschutz (nicht empfohlen). Wird per HTTP Basic-Auth abgefragt.",
+          "xs": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "dashboardTlsCert": {
           "type": "text",
@@ -295,7 +339,11 @@
           "sm": 6,
           "help": "Mit TLS-Key zusammen gesetzt: Dashboard läuft über HTTPS statt HTTP, Zugangsdaten werden verschlüsselt übertragen.",
           "minRows": 6,
-          "maxRows": 12
+          "maxRows": 12,
+          "xs": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "dashboardTlsKey": {
           "type": "text",
@@ -303,7 +351,11 @@
           "sm": 6,
           "help": "Privater Schlüssel zum obigen Zertifikat. Leer lassen = HTTP (unverschlüsselt). Wird verschlüsselt gespeichert (encryptedNative).",
           "minRows": 6,
-          "maxRows": 12
+          "maxRows": 12,
+          "xs": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         }
       }
     },
@@ -316,20 +368,32 @@
           "type": "text",
           "label": "Webhook URL",
           "sm": 12,
-          "help": "Komplette URL inkl. API Key Parameter, z.B. https://.../sync?api-key=123"
+          "help": "Komplette URL inkl. API Key Parameter, z.B. https://.../sync?api-key=123",
+          "xs": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "syncIntervalMin": {
           "type": "number",
           "label": "Intervall (Min)",
           "default": 60,
-          "sm": 6
+          "sm": 6,
+          "xs": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "remoteSyncSkipStale": {
           "type": "checkbox",
           "label": "Inaktive Quellen weglassen",
           "default": false,
           "sm": 6,
-          "help": "Werte, die laut Aktualitätsgrenze/Qualität als inaktiv gelten, werden nicht an den Webhook gesendet."
+          "help": "Werte, die laut Aktualitätsgrenze/Qualität als inaktiv gelten, werden nicht an den Webhook gesendet.",
+          "xs": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6
         },
         "syncCaCert": {
           "type": "text",
@@ -337,21 +401,33 @@
           "sm": 12,
           "help": "Nur bei selbstsigniertem/internem Zertifikat der Sync-Gegenstelle nötig. Leer lassen bei öffentlichem Zertifikat (Standard-Systemvertrauensstore wird genutzt).",
           "minRows": 6,
-          "maxRows": 12
+          "maxRows": 12,
+          "xs": 12,
+          "md": 12,
+          "lg": 12,
+          "xl": 12
         },
         "checkSync": {
           "type": "sendTo",
           "command": "checkSync",
           "label": "Verbindung Prüfen",
           "sm": 4,
-          "variant": "contained"
+          "variant": "contained",
+          "xs": 12,
+          "md": 4,
+          "lg": 4,
+          "xl": 4
         },
         "lastSyncStatus": {
           "type": "state",
           "oid": "info.lastSyncStatus",
           "label": "Letzter Status / Fehlercode",
           "readOnly": true,
-          "sm": 8
+          "sm": 8,
+          "xs": 12,
+          "md": 8,
+          "lg": 8,
+          "xl": 8
         }
       }
     }
