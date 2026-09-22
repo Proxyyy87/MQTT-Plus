@@ -56,13 +56,13 @@ diesem Repository:
 Instanzen → "+" → Reiter *Benutzerdefiniert* → GitHub-URL eintragen:
 
 ```
-https://github.com/Proxyyy87/MQTT-Plus/
+https://github.com/Proxyyy87/ioBroker.mqtt-plus/
 ```
 
 **Über die Kommandozeile:**
 
 ```bash
-iobroker url https://github.com/Proxyyy87/MQTT-Plus/tarball/main mqtt-plus
+iobroker url https://github.com/Proxyyy87/ioBroker.mqtt-plus/tarball/main mqtt-plus
 ```
 
 Beim Installieren aus dem Git-Repository wird TypeScript automatisch kompiliert
@@ -75,8 +75,8 @@ Ziel-Präfix verwendet.
 ## Entwicklung
 
 ```bash
-git clone https://github.com/Proxyyy87/MQTT-Plus.git
-cd MQTT-Plus
+git clone https://github.com/Proxyyy87/ioBroker.mqtt-plus.git
+cd ioBroker.mqtt-plus
 npm install
 npm run build   # kompiliert src/*.ts nach build/
 npm run watch   # kompiliert bei Änderungen automatisch neu
