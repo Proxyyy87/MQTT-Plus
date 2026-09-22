@@ -22,7 +22,7 @@
     "io-package.json"
   ],
   "keywords": [
-    "iobroker",
+    "ioBroker",
     "mqtt",
     "bridge",
     "export",
