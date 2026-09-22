@@ -8,6 +8,7 @@
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue"></a>
   <img alt="Version" src="https://img.shields.io/badge/Version-1.6.1-informational">
   <img alt="js-controller" src="https://img.shields.io/badge/js--controller-%3E%3D6.0.11-informational">
+  <img alt="Node" src="https://img.shields.io/badge/Node.js-%3E%3D18-informational">
   <img alt="Tests" src="https://img.shields.io/badge/Tests-not%20implemented-yellow">
 </p>
 
@@ -47,10 +48,22 @@ Die vollständige Konfigurationsanleitung inklusive aller Details zu Topic-Modus
 Sync-Modus und Remote-Sync-Templates steht in **[admin/readme.md](admin/readme.md)** — das ist
 derselbe Text, den ioBroker Admin auch in der Instanz-Ansicht anzeigt.
 
+## Status der Aufnahme ins offizielle ioBroker-Repository
+
+`mqtt-plus` ist derzeit **nicht** Teil des offiziellen ioBroker-`latest`-Repositories und noch
+nicht auf npm veröffentlicht — Installation läuft bis dahin ausschließlich direkt aus diesem
+Git-Repository (siehe [Installation](#installation)). Der offizielle
+[ioBroker Adapter-Checker](https://adapter-check.iobroker.in/) läuft bereits fehlerfrei bis auf
+die Prüfungen, die zwingend eine vorherige npm-Veröffentlichung voraussetzen. Bis zur Aufnahme
+fehlen noch:
+
+1. `npm publish` — Veröffentlichung auf dem npm-Registry.
+2. Ein Pull Request gegen [ioBroker/ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories),
+   der den Adapter in die `latest`-Liste einträgt.
+
 ## Installation
 
-`mqtt-plus` ist (noch) kein Teil des offiziellen ioBroker-Repositories. Installation direkt aus
-diesem Repository:
+Installation direkt aus diesem Repository:
 
 **Über die Admin-Oberfläche:**
 Instanzen → "+" → Reiter *Benutzerdefiniert* → GitHub-URL eintragen:
@@ -82,9 +95,16 @@ npm run build   # kompiliert src/*.ts nach build/
 npm run watch   # kompiliert bei Änderungen automatisch neu
 ```
 
+**Wichtig für Pull Requests:** Der Ordner `build/` wird bewusst mitversioniert (nicht per
+`.gitignore` ausgeschlossen), weil der offizielle ioBroker Adapter-Checker die Datei `main`
+(`build/main.js`) direkt aus dem Repository lädt, ohne vorher `npm install`/`prepare`
+auszuführen. Nach jeder Änderung an `src/*.ts` also `npm run build` laufen lassen und den
+aktualisierten `build/`-Ordner mit committen.
+
 Technisch basiert der Adapter auf TypeScript, `@iobroker/adapter-core` und `axios`; das
 Web-Dashboard und der HTTP(S)-Server sind mit Bordmitteln von Node.js (`http`/`https`)
-umgesetzt, ohne zusätzliches Web-Framework.
+umgesetzt, ohne zusätzliches Web-Framework. `@iobroker/testing` ist als devDependency
+vorbereitet, aktuell gibt es aber noch keine automatisierten Tests (siehe Test-Badge oben).
 
 ## Changelog
 
