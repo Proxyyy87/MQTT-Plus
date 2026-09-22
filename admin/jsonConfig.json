@@ -1,0 +1,358 @@
+{
+  "type": "tabs",
+  "items": {
+    "main": {
+      "type": "panel",
+      "label": "Einstellungen & Routen",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTMgMTNIMXYtMmgydjJ6bTA-MmgydjJIN1YzHptMTQgMTlIMXYtMmgydjJ6bTQtMmgydjJIN1YxN3ptNCAwaC0ydjJoMnYtMnoiLz48L3N2Zz4=",
+      "items": {
+        "targetBasePath": {
+          "type": "text",
+          "label": "MQTT Ziel-Pfad (Prefix)",
+          "default": "mqtt.0.",
+          "sm": 6,
+          "help": "Muss auf . enden! Bsp: mqtt.0."
+        },
+        "updateIntervalSec": {
+          "type": "number",
+          "label": "Update Intervall (s)",
+          "default": 30,
+          "sm": 3
+        },
+        "logTransfers": {
+          "type": "checkbox",
+          "label": "Log Aktiv",
+          "default": true,
+          "sm": 3
+        },
+        "forceSyncIntervalMin": {
+          "type": "number",
+          "label": "Force-Sync Intervall (Min, 0 = aus)",
+          "default": 5,
+          "sm": 3,
+          "help": "Vergleicht Quelle und Ziel und schreibt nur Abweichungen - Mappings im Sync-Modus \"Force\" werden immer neu geschrieben."
+        },
+        "staleAfterMin": {
+          "type": "number",
+          "label": "Aktualitätsgrenze (Min, 0 = aus)",
+          "default": 1440,
+          "min": 0,
+          "sm": 3,
+          "help": "Quellen, deren letztes Update älter ist (oder mit Qualität q≠0), werden bei Start, Update-Intervall und Force-Sync nicht gespiegelt - ein inaktives Gerät wird so auf der Zielseite nicht wieder \"frisch\". Echte Änderungs-Ereignisse gehen immer durch. Standard: 1440 (24 h)."
+        },
+        "mappings": {
+          "type": "accordion",
+          "label": "Mappings",
+          "titleAttr": "mqttName",
+          "clone": true,
+          "newLine": true,
+          "sm": 12,
+          "items": [
+            {
+              "type": "objectId",
+              "attr": "id",
+              "label": "Quell-ID (ioBroker)",
+              "xs": 12,
+              "sm": 12,
+              "md": 6,
+              "lg": 4,
+              "xl": 4
+            },
+            {
+              "type": "text",
+              "attr": "mqttName",
+              "label": "Pfad Suffix (z.B. home/küche/licht)",
+              "xs": 12,
+              "sm": 12,
+              "md": 6,
+              "lg": 3,
+              "xl": 3
+            },
+            {
+              "type": "select",
+              "attr": "dir",
+              "label": "Richtung",
+              "options": [
+                {
+                  "value": "out",
+                  "label": "IOB -> MQTT"
+                },
+                {
+                  "value": "in",
+                  "label": "MQTT -> IOB"
+                },
+                {
+                  "value": "both",
+                  "label": "Beide"
+                }
+              ],
+              "default": "out",
+              "xs": 12,
+              "sm": 6,
+              "md": 4,
+              "lg": 2,
+              "xl": 2
+            },
+            {
+              "type": "select",
+              "attr": "topicMode",
+              "label": "MQTT-Topic-Modus",
+              "options": [
+                {
+                  "value": "single",
+                  "label": "Single (ein Topic)"
+                },
+                {
+                  "value": "dual",
+                  "label": "Dual (Befehl auf /set)"
+                }
+              ],
+              "default": "single",
+              "xs": 12,
+              "sm": 6,
+              "md": 4,
+              "lg": 2,
+              "xl": 2,
+              "help": "Dual: Befehle auf <topic>/set"
+            },
+            {
+              "type": "text",
+              "attr": "commandSuffix",
+              "label": "Befehls-Suffix",
+              "default": "/set",
+              "xs": 12,
+              "sm": 6,
+              "md": 4,
+              "lg": 1,
+              "xl": 1,
+              "hidden": "data.topicMode !== 'dual'"
+            },
+            {
+              "type": "select",
+              "attr": "type",
+              "label": "Typ",
+              "options": [
+                {
+                  "value": "auto",
+                  "label": "Auto"
+                },
+                {
+                  "value": "round",
+                  "label": "Runden"
+                },
+                {
+                  "value": "boolToNum",
+                  "label": "Bool->Num"
+                },
+                {
+                  "value": "numToBool",
+                  "label": "Num->Bool"
+                }
+              ],
+              "default": "auto",
+              "newLine": true,
+              "xs": 12,
+              "sm": 6,
+              "md": 3,
+              "lg": 2,
+              "xl": 2
+            },
+            {
+              "type": "number",
+              "attr": "decimals",
+              "label": "Nachkommastellen",
+              "default": 2,
+              "xs": 12,
+              "sm": 6,
+              "md": 3,
+              "lg": 1,
+              "xl": 1,
+              "hidden": "data.type !== 'round'"
+            },
+            {
+              "type": "text",
+              "attr": "unit",
+              "label": "Einheit",
+              "xs": 12,
+              "sm": 6,
+              "md": 2,
+              "lg": 1,
+              "xl": 1
+            },
+            {
+              "type": "select",
+              "attr": "ackFilter",
+              "label": "Ack-Filter",
+              "options": [
+                {
+                  "value": "confirmed",
+                  "label": "Nur bestätigt (ack=true)"
+                },
+                {
+                  "value": "any",
+                  "label": "Auch unbestätigt (userdata/alias)"
+                }
+              ],
+              "default": "confirmed",
+              "xs": 12,
+              "sm": 6,
+              "md": 4,
+              "lg": 3,
+              "xl": 3,
+              "help": "\"Auch unbestätigt\" für 0_userdata/alias"
+            },
+            {
+              "type": "number",
+              "attr": "staleAfterMin",
+              "label": "Aktualität (Min)",
+              "min": 0,
+              "xs": 12,
+              "sm": 6,
+              "md": 3,
+              "lg": 2,
+              "xl": 2,
+              "help": "leer = global, 0 = aus",
+              "hidden": "data.syncMode === 'force'"
+            },
+            {
+              "type": "select",
+              "attr": "syncMode",
+              "label": "Sync-Modus",
+              "default": "standard",
+              "xs": 12,
+              "sm": 6,
+              "md": 4,
+              "lg": 3,
+              "xl": 3,
+              "options": [
+                {
+                  "value": "standard",
+                  "label": "Standard (nur Änderungen)"
+                },
+                {
+                  "value": "refresh",
+                  "label": "Jede Meldung weiterreichen"
+                },
+                {
+                  "value": "force",
+                  "label": "Force wie vor 1.6.0"
+                }
+              ],
+              "help": "Siehe Hilfe: Sync-Modus"
+            }
+          ]
+        }
+      }
+    },
+    "webTab": {
+      "type": "panel",
+      "label": "Web Dashboard",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE0IDJINkM0Ljg5IDIgNCAyLjg5IDQgNHYxNmMwIDEuMTEuODkgMiAyIDJoMTJjMS4xMSAwIDItLjg5IDItMlY4bC02LTZ6bS0xIDlIN3YtMmg2djJ6bTMgN0g3di0yaDEwdjJ6bTAtNEg3di0yaDEwdjJ6Ii8+PC9zdmc+",
+      "items": {
+        "webInfo": {
+          "type": "staticText",
+          "text": "Der Adapter stellt ein Web-Interface für Backup/Restore und Status bereit. Nutzen Sie den Link in der Instanz-Übersicht.",
+          "sm": 12
+        },
+        "serverPort": {
+          "type": "number",
+          "label": "Webserver Port",
+          "default": 8095,
+          "sm": 4
+        },
+        "bindHost": {
+          "type": "select",
+          "label": "Bind-Interface",
+          "default": "0.0.0.0",
+          "sm": 4,
+          "options": [
+            {
+              "value": "0.0.0.0",
+              "label": "Alle Interfaces (LAN erreichbar)"
+            },
+            {
+              "value": "127.0.0.1",
+              "label": "Nur lokal (127.0.0.1)"
+            }
+          ]
+        },
+        "dashboardUser": {
+          "type": "text",
+          "label": "Dashboard Benutzername",
+          "default": "admin",
+          "sm": 4
+        },
+        "dashboardPassword": {
+          "type": "password",
+          "label": "Dashboard Passwort",
+          "sm": 4,
+          "help": "Leer lassen = kein Zugangsschutz (nicht empfohlen). Wird per HTTP Basic-Auth abgefragt."
+        },
+        "dashboardTlsCert": {
+          "type": "text",
+          "label": "TLS-Zertifikat (PEM, optional)",
+          "multiline": true,
+          "rows": 6,
+          "sm": 6,
+          "help": "Mit TLS-Key zusammen gesetzt: Dashboard läuft über HTTPS statt HTTP, Zugangsdaten werden verschlüsselt übertragen."
+        },
+        "dashboardTlsKey": {
+          "type": "text",
+          "label": "TLS-Key (PEM, optional)",
+          "multiline": true,
+          "rows": 6,
+          "sm": 6,
+          "help": "Privater Schlüssel zum obigen Zertifikat. Leer lassen = HTTP (unverschlüsselt). Wird verschlüsselt gespeichert (encryptedNative)."
+        }
+      }
+    },
+    "syncTab": {
+      "type": "panel",
+      "label": "Remote Sync",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5LjM1IDEwLjA0QzE4LjY3IDYuNTkgMTUuNjQgNCAxMiA0IDkuMTEgNCA2LjYgNS42NCA1LjM1IDguMDQgMi4zNCA4LjM2IDAgMTAuOTEgMCAxNGMwIDMuMzEgMi42OSA2IDYgNmgxM2MzLjMxIDAgNi0yLjY5IDYtNkwyNCAxNGMtMy4zMSAwLTYtMi42OS02LTYgMC0zLjMxIDIuNjktNiA2LTZ6Ii8+PC9zdmc+",
+      "items": {
+        "syncUrl": {
+          "type": "text",
+          "label": "Webhook URL",
+          "sm": 12,
+          "help": "Komplette URL inkl. API Key Parameter, z.B. https://.../sync?api-key=123"
+        },
+        "syncIntervalMin": {
+          "type": "number",
+          "label": "Intervall (Min)",
+          "default": 60,
+          "sm": 6
+        },
+        "remoteSyncSkipStale": {
+          "type": "checkbox",
+          "label": "Inaktive Quellen weglassen",
+          "default": false,
+          "sm": 6,
+          "help": "Werte, die laut Aktualitätsgrenze/Qualität als inaktiv gelten, werden nicht an den Webhook gesendet."
+        },
+        "syncCaCert": {
+          "type": "text",
+          "label": "Vertrauenswürdiges Zertifikat / CA (PEM, optional)",
+          "multiline": true,
+          "rows": 6,
+          "sm": 12,
+          "help": "Nur bei selbstsigniertem/internem Zertifikat der Sync-Gegenstelle nötig. Leer lassen bei öffentlichem Zertifikat (Standard-Systemvertrauensstore wird genutzt)."
+        },
+        "checkSync": {
+          "type": "sendTo",
+          "command": "checkSync",
+          "label": "Verbindung Prüfen",
+          "sm": 4,
+          "variant": "contained"
+        },
+        "lastSyncStatus": {
+          "type": "text",
+          "oid": "info.lastSyncStatus",
+          "label": "Letzter Status / Fehlercode",
+          "sm": 8,
+          "readOnly": true
+        }
+      }
+    }
+  }
+}

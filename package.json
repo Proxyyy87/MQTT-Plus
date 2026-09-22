@@ -1,0 +1,37 @@
+{
+  "name": "iobroker.mqtt-plus",
+  "version": "1.6.1",
+  "description": "Bridge between ioBroker states and MQTT with JSON export and Remote Sync",
+  "author": "proxy <zumloeschen@ich.ms>",
+  "license": "MIT",
+  "homepage": "https://github.com/Proxyyy87/MQTT-Plus#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Proxyyy87/MQTT-Plus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Proxyyy87/MQTT-Plus/issues"
+  },
+  "main": "build/main.js",
+  "files": [
+    "admin/",
+    "build/",
+    "io-package.json"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
+    "prepare": "tsc -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.0.0",
+    "axios": "^1.0.0"
+  },
+  "devDependencies": {
+    "@iobroker/types": "^6.0.0",
+    "@types/node": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "type": "commonjs"
+}

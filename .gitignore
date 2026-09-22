@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output (wird per "prepare"-Skript beim Installieren automatisch erzeugt)
+build/
+*.tsbuildinfo
+
+# Gepackte Adapter-Archive / Backups (Historie übernimmt git)
+*.tgz
+*.rar
+*.tar.gz
+
+# IDE
+.idea/
+
+# Claude Code (lokale Assistenten-Konfiguration, kein Projektbestandteil)
+.claude/
+
+# Lokale Konfigurations-Backups - enthalten echte Datenpunkt-Pfade/Zugangsdaten
+*Config-Backup*.json
+
+# Lokales Entwicklungszertifikat (mkcert), nur auf diesem Rechner relevant
+Workbench-Root-CA.pem
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log

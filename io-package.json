@@ -1,0 +1,228 @@
+{
+  "common": {
+    "name": "mqtt-plus",
+    "version": "1.6.1",
+    "news": {
+      "1.6.1": {
+        "en": "Per-mapping sync mode: 'standard', 'pass every update' (same value with newer timestamp is mirrored, for rarely changing sensors) or 'force as before 1.6.0'; mapping settings now shown as accordion with two short rows per entry",
+        "de": "Sync-Modus pro Mapping: 'Standard', 'Jede Meldung weiterreichen' (gleicher Wert mit neuerem Zeitstempel wird gespiegelt, für selten wechselnde Sensoren) oder 'Force wie vor 1.6.0'; Mapping-Einstellungen jetzt als aufklappbare Liste mit zwei kurzen Zeilen pro Eintrag"
+      },
+      "1.6.0": {
+        "en": "Timestamps are no longer falsified by copying: source ts/lc/q are passed through to the mirror; start, cycle and force-sync skip inactive sources (configurable staleness limit, quality check); force-sync only writes values that actually differ; cycle-sync respects the ack filter; new remote-sync placeholders %LC%, %ACK%, %Q% and option to skip inactive sources",
+        "de": "Zeitstempel werden durch das Kopieren nicht mehr verfälscht: ts/lc/q der Quelle werden auf den Spiegel übernommen; Start, Cycle und Force-Sync überspringen inaktive Quellen (einstellbare Aktualitätsgrenze, Qualitätsprüfung); Force-Sync schreibt nur tatsächlich abweichende Werte; Cycle-Sync beachtet den Ack-Filter; neue Remote-Sync-Platzhalter %LC%, %ACK%, %Q% sowie Option zum Weglassen inaktiver Quellen"
+      },
+      "1.5.1": {
+        "en": "Dual mode now accepts commands on the /set topic regardless of the ack flag (MQTT adapters forward /set as unconfirmed command); clarified that the topic mode only affects the MQTT side",
+        "de": "Dual-Modus nimmt Befehle auf dem /set-Topic jetzt unabhängig vom ack-Flag an (MQTT-Adapter reichen /set als unbestätigten Befehl weiter); klargestellt, dass der Topic-Modus nur die MQTT-Seite betrifft"
+      },
+      "1.5.0": {
+        "en": "Per-mapping topic mode: 'dual' sends status on <topic> and receives commands on <topic>/set (suffix configurable); stale commands are no longer replayed on start or force-sync",
+        "de": "Topic-Modus pro Mapping: 'dual' meldet den Status auf <topic> und empfängt Befehle auf <topic>/set (Suffix konfigurierbar); alte Befehle werden bei Start und Force-Sync nicht mehr wiederholt"
+      },
+      "1.4.0": {
+        "en": "Fixed echo protection swallowing genuine device confirmations on 'both' mappings, added HTTPS dashboard option, persistent auth lockout, retryable-error handling, type coercion for command direction, tolerant value comparison",
+        "de": "Fehler behoben, bei dem echte Gerätebestätigungen bei 'both'-Mappings fälschlich als Echo verworfen wurden; optionales HTTPS fürs Dashboard, persistente Login-Sperre, differenziertes Retry-Verhalten, Typ-Koerzion auch in Befehlsrichtung, toleranter Wertevergleich"
+      },
+      "1.3.4": {
+        "en": "Remote Sync: reconstructs missing line breaks around BEGIN/END markers in pasted CA certificates (fixes single-line PEM 'no start line' errors)",
+        "de": "Remote-Sync: rekonstruiert fehlende Zeilenumbrüche um BEGIN/END-Markierungen in eingefügten CA-Zertifikaten (behebt 'no start line'-Fehler bei einzeiligen PEMs)"
+      },
+      "1.3.3": {
+        "en": "Remote Sync: auto-normalizes look-alike Unicode dashes/non-breaking spaces in pasted CA certificates (fixes 'no start line' PEM parse errors)",
+        "de": "Remote-Sync: normalisiert optisch identische Unicode-Bindestriche/geschützte Leerzeichen in eingefügten CA-Zertifikaten automatisch (behebt 'no start line'-PEM-Parse-Fehler)"
+      },
+      "1.3.2": {
+        "en": "Remote Sync: logs the parsed CA certificate fingerprint for diagnostics, disables proxy env vars for the sync request",
+        "de": "Remote-Sync: loggt den Fingerabdruck des eingelesenen CA-Zertifikats zur Diagnose, deaktiviert Proxy-Umgebungsvariablen für den Sync-Request"
+      },
+      "1.3.1": {
+        "en": "adds visible info.version state and diagnostic logging for the remote-sync CA certificate",
+        "de": "sichtbarer info.version-State sowie Diagnose-Logging für das Remote-Sync-CA-Zertifikat hinzugefügt"
+      },
+      "1.3.0": {
+        "en": "security hardening (dashboard auth, CSRF/CORS, TLS pinning), deterministic echo protection, batched sync, configurable ack filter",
+        "de": "Sicherheitshärtung (Dashboard-Login, CSRF/CORS, TLS-Pinning), deterministischer Echo-Schutz, gebündelter Sync, konfigurierbarer Ack-Filter"
+      },
+      "1.2.2": {
+        "en": "added force-sync interval to heal split-brain states automatically",
+        "de": "Zwangssynchronisations-Intervall hinzugefügt, um asynchrone Zustände (Split-Brain) automatisch zu heilen"
+      },
+      "1.2.1": {
+        "en": "added timestamp validation to strictly prevent hardware echoes",
+        "de": "Zeitstempel-Validierung hinzugefügt, um Hardware-Echos strikt zu blockieren"
+      },
+      "1.2.0": {
+        "en": "performance update with lookup maps for instant reaction and no lag",
+        "de": "Performance-Update mit Lookup-Maps für sofortige Reaktion ohne Verzögerung"
+      }
+    },
+    "titleLang": {
+      "en": "MQTT Plus Bridge",
+      "de": "MQTT Plus-Brücke"
+    },
+    "desc": {
+      "en": "Bridge between ioBroker states and MQTT with JSON export and Remote Sync",
+      "de": "Brücke zwischen ioBroker-Zuständen und MQTT mit JSON-Export und Remote-Sync"
+    },
+    "authors": [
+      "proxy <zumloeschen@ich.ms>"
+    ],
+    "keywords": [
+      "mqtt",
+      "bridge",
+      "export",
+      "sync"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "mqtt-plus.png",
+    "enabled": true,
+    "loglevel": "debug",
+    "mode": "daemon",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "messagebox": true,
+    "localLink": "http://%ip%:%native_serverPort%",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "tier": 3
+  },
+  "native": {
+    "targetBasePath": "mqtt.0.",
+    "updateIntervalSec": 30,
+    "logTransfers": true,
+    "mappings": [],
+    "syncUrl": "",
+    "syncIntervalMin": 60,
+    "serverPort": 8095,
+    "dashboardUser": "admin",
+    "dashboardPassword": "",
+    "dashboardTlsCert": "",
+    "dashboardTlsKey": "",
+    "syncCaCert": "",
+    "forceSyncIntervalMin": 5,
+    "bindHost": "0.0.0.0",
+    "staleAfterMin": 1440,
+    "remoteSyncSkipStale": false
+  },
+  "encryptedNative": [
+    "dashboardPassword",
+    "dashboardTlsKey"
+  ],
+  "protectedNative": [
+    "dashboardPassword",
+    "dashboardTlsKey"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "watchdog",
+      "type": "state",
+      "common": {
+        "name": "MQTT Bridge Watchdog",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.dashboardUrl",
+      "type": "state",
+      "common": {
+        "name": "Dashboard URL",
+        "type": "string",
+        "role": "url",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lastSyncStatus",
+      "type": "state",
+      "common": {
+        "name": "Letzter Sync Status",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.status",
+      "type": "state",
+      "common": {
+        "name": "Status",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lastCycle",
+      "type": "state",
+      "common": {
+        "name": "Letzter Sync-Zyklus",
+        "type": "number",
+        "role": "value.time",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": "Connected",
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.version",
+      "type": "state",
+      "common": {
+        "name": "Adapter-Version",
+        "type": "string",
+        "role": "info.version",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.authLockouts",
+      "type": "state",
+      "common": {
+        "name": "Login-Sperrliste (intern)",
+        "type": "string",
+        "role": "json",
+        "read": true,
+        "write": false,
+        "def": "{}"
+      },
+      "native": {}
+    }
+  ]
+}
