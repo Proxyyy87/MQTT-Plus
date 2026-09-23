@@ -45,9 +45,9 @@ jobs:
           build: true
 
   # Deploys the final package to npm when a version tag (v1.2.3) is pushed.
-  # Uses npm Trusted Publishing (OIDC) - no NPM_TOKEN secret needed, and the package
-  # is published with provenance. Requires a trusted publisher entry on npmjs.com
-  # for this repository and this workflow file.
+  # Authentication uses the NPM_TOKEN repository secret. The package is still signed
+  # with provenance via the id-token permission below, so switching to npm Trusted
+  # Publishing later only means removing the npm-token input again.
   deploy:
     needs: [check-and-lint, adapter-tests]
     if: |
@@ -59,12 +59,14 @@ jobs:
       contents: write
       id-token: write
     env:
+      # Sign the published package with provenance. This uses the id-token permission
+      # above (Sigstore/OIDC) and works with token based authentication as well.
+      NPM_CONFIG_PROVENANCE: true
       # Makes npm print its OIDC diagnostics ("oidc" log lines) during publish
       NPM_CONFIG_LOGLEVEL: silly
     steps:
       - name: Check OIDC availability
         run: |
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL set: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL != '' }}"
           if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && [ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
             echo "OIDC env vars present -> requesting token to inspect claims"
             CLAIMS=$(curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
@@ -79,4 +81,5 @@ jobs:
         with:
           node-version: "24.x"
           build: true
+          npm-token: ${{ secrets.NPM_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
