@@ -67,6 +67,11 @@ interface SyncOptions {
     preserveTimestamp?: boolean;
     // syncMode "refresh": gleicher Wert mit neuerem Quell-ts wird trotzdem geschrieben.
     passRefresh?: boolean;
+    // Befehl über das Befehls-Topic (dual /set): jeder Befehl ist neu und wird nie am
+    // Wert-Cache verworfen. Der Cache kennt nur den letzten BEFEHL, nicht den Gerätezustand -
+    // wurde das Gerät dazwischen anderweitig geschaltet (Taster, App), wäre ein gleicher
+    // Befehl sonst wirkungslos.
+    isCommand?: boolean;
 }
 
 type SyncPhase = "event" | "start" | "cycle" | "force";
@@ -556,7 +561,7 @@ class MqttPlus extends utils.Adapter {
                 // nicht den der MQTT-Nachricht, und wird nie als "Refresh" wiederholt. Bei "single"
                 // wird ein Zustand gespiegelt.
                 const eventOpts: SyncOptions = isDual
-                    ? { decimals: entry.decimals, preserveTimestamp: false }
+                    ? { decimals: entry.decimals, preserveTimestamp: false, isCommand: true }
                     : this.syncOptionsFor(entry, "event");
                 await this.syncValue(entry.commandPath, entry.id, dirLabel, "MQTT-EVENT", effectiveType, state, eventOpts);
             }
@@ -632,7 +637,11 @@ class MqttPlus extends utils.Adapter {
 
             // --- 2. VALUE CACHE (Ping-Pong Schutz für langsame Echos) ---
             // WICHTIG: Wenn force = true ist, ignorieren wir den Cache komplett!
-            if (!force && this.sameValue(this.lastSyncValues.get(cacheKey), processedValue) && !isRefresh(this.lastSyncTs.get(cacheKey))) {
+            // Ebenso bei Befehlen (dual /set): Beobachtet am Shelly-Schalter - per Dashboard
+            // eingeschaltet (Cache: true), am Gerät ausgeschaltet (läuft über die Gegenrichtung,
+            // der Cache bleibt true), erneutes Einschalten per Dashboard wurde als "redundant"
+            // verworfen. Erst aus und wieder ein half.
+            if (!force && !opts.isCommand && this.sameValue(this.lastSyncValues.get(cacheKey), processedValue) && !isRefresh(this.lastSyncTs.get(cacheKey))) {
                 this.log.debug(`[Cache-Schild] Blockiere redundanten Wert für ${targetId} (Wert '${processedValue}' ist identisch zum letzten Sendevorgang)`);
                 return false;
             }

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "mqtt-plus",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "news": {
+      "1.6.3": {
+        "en": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "de": "Befehle auf dem /set-Topic (Dual-Modus) werden nicht mehr als redundant verworfen, wenn das Gerät zwischenzeitlich anderweitig geschaltet wurde",
+        "ru": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "pt": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "nl": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "fr": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "it": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "es": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "pl": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "uk": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
+        "zh-cn": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime"
+      },
       "1.6.2": {
         "en": "Web server retries if the port is still in use instead of shutting down permanently; compact mode compatibility (no process exit, adapter timers); Node.js 22 required; dependencies updated; translations for all languages",
         "de": "Webserver versucht es bei belegtem Port erneut, statt sich dauerhaft zu beenden; Compact-Mode-kompatibel (kein Prozess-Exit, Adapter-Timer); Node.js 22 erforderlich; Abhängigkeiten aktualisiert; Übersetzungen für alle Sprachen",
