@@ -67,4 +67,5 @@ jobs:
         with:
           node-version: "24.x"
           build: true
+          npm-token: ${{ secrets.MQTT2 }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
