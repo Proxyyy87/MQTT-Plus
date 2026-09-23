@@ -27,6 +27,33 @@ Releases are published by the GitHub Actions workflow `test-and-release.yml` whe
 (`v1.2.3`) is pushed. Publishing uses npm Trusted Publishing, so no npm token is stored in the
 repository and every release is published with provenance.
 
+### One-time setup: trusted publisher on npmjs.com
+
+**This must be configured before the next release, otherwise the deploy job fails with
+`ENEEDAUTH` / `OIDC token exchange error - package not found`.**
+
+On npmjs.com go to **Packages → `iobroker.mqtt-plus` → Settings → Trusted publishing**, add a
+publisher of type **GitHub Actions** and enter exactly (all fields are case-sensitive):
+
+| Field | Value |
+|---|---|
+| Organization or user | `Proxyyy87` |
+| Repository | `ioBroker.mqtt-plus` |
+| Workflow filename | `test-and-release.yml` |
+| Environment | *(leave empty)* |
+
+Under **Allowed actions**, make sure **`npm publish`** is permitted. Entries created after
+2026-09-03 only allow `npm stage publish` by default, which is *not* what the release workflow
+uses.
+
+Notes:
+
+* npm does not validate the configuration when saving - mistakes only surface during a release.
+* Existing entries cannot be edited. To correct them, delete and recreate.
+* After saving, the entry must be visible in the list. An empty list means nothing was stored.
+
+### Publishing a release
+
 Before tagging:
 
 1. Bump the version in `package.json` and `io-package.json` (`common.version`).

@@ -45,9 +45,9 @@ jobs:
           build: true
 
   # Deploys the final package to npm when a version tag (v1.2.3) is pushed.
-  # Authentication uses the MQTT2 repository secret (npm token). The package is signed
-  # with provenance via the id-token permission below, so switching to npm Trusted
-  # Publishing later only means removing the npm-token input again.
+  # Authentication uses npm Trusted Publishing (OIDC) via the id-token permission
+  # below - no npm token is stored in this repository. This requires a trusted
+  # publisher entry for this package on npmjs.com; see CONTRIBUTING.md.
   deploy:
     needs: [check-and-lint, adapter-tests]
     if: |
@@ -59,13 +59,12 @@ jobs:
       contents: write
       id-token: write
     env:
-      # Sign the published package with provenance. This uses the id-token permission
-      # above (Sigstore/OIDC) and works with token based authentication as well.
+      # Sign the published package with provenance (Sigstore), using the id-token
+      # permission above.
       NPM_CONFIG_PROVENANCE: true
     steps:
       - uses: ioBroker/testing-action-deploy@v1
         with:
           node-version: "24.x"
           build: true
-          npm-token: ${{ secrets.MQTT2 }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
