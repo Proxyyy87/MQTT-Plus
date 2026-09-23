@@ -45,7 +45,7 @@ jobs:
           build: true
 
   # Deploys the final package to npm when a version tag (v1.2.3) is pushed.
-  # Authentication uses the NPM_TOKEN repository secret. The package is still signed
+  # Authentication uses the MQTT2 repository secret (npm token). The package is signed
   # with provenance via the id-token permission below, so switching to npm Trusted
   # Publishing later only means removing the npm-token input again.
   deploy:
@@ -81,5 +81,5 @@ jobs:
         with:
           node-version: "24.x"
           build: true
-          npm-token: ${{ secrets.NPM_TOKEN }}
+          npm-token: ${{ secrets.MQTT2 }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
