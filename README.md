@@ -17,9 +17,10 @@ adapter (e.g. `mqtt.0`) and back. It creates the required folder structure autom
 converts values on the fly, provides a secured web dashboard for backup/restore and can
 additionally push the data to an external webhook via HTTP(S).
 
-`mqtt-plus` does not speak the MQTT protocol itself. Connection, QoS and `retain` towards the
-broker are handled entirely by the separately installed MQTT adapter; `mqtt-plus` only reads
-and writes states in its namespace.
+`mqtt-plus` does not speak the [MQTT protocol](https://mqtt.org/) itself. Connection, QoS and
+`retain` towards the broker are handled entirely by the separately installed MQTT adapter;
+`mqtt-plus` only reads and writes states in its namespace. Protocol details and the
+specification are documented at [mqtt.org](https://mqtt.org/getting-started/).
 
 ### Features
 
