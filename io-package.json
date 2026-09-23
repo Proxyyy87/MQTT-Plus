@@ -6,15 +6,15 @@
       "1.6.3": {
         "en": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
         "de": "Befehle auf dem /set-Topic (Dual-Modus) werden nicht mehr als redundant verworfen, wenn das Gerät zwischenzeitlich anderweitig geschaltet wurde",
-        "ru": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "pt": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "nl": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "fr": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "it": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "es": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "pl": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "uk": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
-        "zh-cn": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime"
+        "ru": "Команды в топике /set (режим dual) больше не отбрасываются как избыточные, если устройство тем временем было переключено другим способом",
+        "pt": "Os comandos no tópico /set (modo dual) já não são descartados como redundantes quando o dispositivo foi comutado entretanto por outro meio",
+        "nl": "Commando's op het /set-topic (dual-modus) worden niet meer als overbodig verworpen als het apparaat intussen op een andere manier is geschakeld",
+        "fr": "Les commandes sur le topic /set (mode dual) ne sont plus rejetées comme redondantes lorsque l'appareil a été commuté entre-temps par un autre moyen",
+        "it": "I comandi sul topic /set (modalità dual) non vengono più scartati come ridondanti quando nel frattempo il dispositivo è stato commutato in altro modo",
+        "es": "Los comandos en el topic /set (modo dual) ya no se descartan como redundantes cuando el dispositivo se ha conmutado mientras tanto por otra vía",
+        "pl": "Polecenia w temacie /set (tryb dual) nie są już odrzucane jako zbędne, gdy urządzenie zostało w międzyczasie przełączone w inny sposób",
+        "uk": "Команди в топіку /set (режим dual) більше не відкидаються як надлишкові, якщо пристрій тим часом було перемкнено іншим способом",
+        "zh-cn": "当设备在此期间已通过其他方式切换时，/set 主题（双主题模式）上的命令不再被当作重复命令丢弃"
       },
       "1.6.2": {
         "en": "Web server retries if the port is still in use instead of shutting down permanently; compact mode compatibility (no process exit, adapter timers); Node.js 22 required; dependencies updated; translations for all languages",
