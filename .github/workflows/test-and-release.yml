@@ -43,7 +43,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           os: ${{ matrix.os }}
           build: true
-          npm-token: ${{ secrets.MQTT2 }}
 
   # Deploys the final package to npm when a version tag (v1.2.3) is pushed.
   # Authentication uses npm Trusted Publishing (OIDC) via the id-token permission
@@ -68,5 +67,4 @@ jobs:
         with:
           node-version: "24.x"
           build: true
-          npm-token: ${{ secrets.MQTT2 }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
