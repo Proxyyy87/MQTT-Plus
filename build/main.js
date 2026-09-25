@@ -242,51 +242,12 @@ class MqttPlus extends utils.Adapter {
         }
     }
     async initObjects() {
-        await this.setObjectNotExistsAsync("watchdog", {
-            type: "state",
-            common: { name: "MQTT Bridge Watchdog", type: "string", role: "text", read: true, write: false },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("config.syncTemplate", {
-            type: "state",
-            common: { name: "Remote Sync JSON Template", type: "string", role: "json", read: true, write: true, def: this.getDefaultSyncTemplate() },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("info.dashboardUrl", {
-            type: "state",
-            common: { name: "Dashboard URL", type: "string", role: "url", read: true, write: false },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("info.lastSyncStatus", {
-            type: "state",
-            common: { name: "Letzter Sync Status", type: "string", role: "text", read: true, write: false },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("info.status", {
-            type: "state",
-            common: { name: "Status", type: "string", role: "text", read: true, write: false },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("info.lastCycle", {
-            type: "state",
-            common: { name: "Letzter Sync-Zyklus", type: "number", role: "value.time", read: true, write: false },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("info.connection", {
-            type: "state",
-            common: { name: "Connected", type: "boolean", role: "indicator.connected", read: true, write: false, def: false },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("info.version", {
-            type: "state",
-            common: { name: "Adapter-Version", type: "string", role: "text", read: true, write: false },
-            native: {},
-        });
-        await this.setObjectNotExistsAsync("info.authLockouts", {
-            type: "state",
-            common: { name: "Login-Sperrliste (intern)", type: "string", role: "json", read: true, write: false, def: "{}" },
-            native: {},
-        });
+        for (const { id, obj } of MqttPlus.OWN_OBJECTS) {
+            const def = id === "config.syncTemplate"
+                ? { ...obj, common: { ...obj.common, def: this.getDefaultSyncTemplate() } }
+                : obj;
+            await this.extendObject(id, def);
+        }
     }
     // Lädt aktive Login-Sperren aus der Persistenz, damit ein Adapter-Neustart eine laufende
     // Brute-Force-Sperre nicht zurücksetzt. Bereits abgelaufene Einträge werden verworfen.
@@ -1703,6 +1664,23 @@ MqttPlus.LISTEN_ATTEMPTS = 6;
 MqttPlus.LISTEN_RETRY_MS = 5000;
 // Standard-Aktualitätsgrenze, falls in der Instanz (z.B. nach Update von <1.6.0) nichts gesetzt ist.
 MqttPlus.DEFAULT_STALE_AFTER_MIN = 1440; // 24 h
+// Eigene Objekte der Instanz. Reihenfolge wichtig: die Channel "info" und "config" zuerst,
+// denn jeder State braucht ein Elternobjekt (sonst lehnt die ioBroker-Strukturprüfung ab).
+// extendObject statt setObjectNotExists: so erhalten auch bestehende Installationen korrigierte
+// Definitionen (z.B. die Rolle von info.version, die bis 1.6.1 "info.version" lautete).
+MqttPlus.OWN_OBJECTS = [
+    { id: "info", obj: { type: "channel", common: { name: "Information" }, native: {} } },
+    { id: "config", obj: { type: "channel", common: { name: "Configuration" }, native: {} } },
+    { id: "watchdog", obj: { type: "state", common: { name: "MQTT Bridge Watchdog", type: "string", role: "text", read: true, write: false }, native: {} } },
+    { id: "config.syncTemplate", obj: { type: "state", common: { name: "Remote Sync JSON Template", type: "string", role: "json", read: true, write: true }, native: {} } },
+    { id: "info.dashboardUrl", obj: { type: "state", common: { name: "Dashboard URL", type: "string", role: "url", read: true, write: false }, native: {} } },
+    { id: "info.lastSyncStatus", obj: { type: "state", common: { name: "Letzter Sync Status", type: "string", role: "text", read: true, write: false }, native: {} } },
+    { id: "info.status", obj: { type: "state", common: { name: "Status", type: "string", role: "text", read: true, write: false }, native: {} } },
+    { id: "info.lastCycle", obj: { type: "state", common: { name: "Letzter Sync-Zyklus", type: "number", role: "value.time", read: true, write: false }, native: {} } },
+    { id: "info.connection", obj: { type: "state", common: { name: "Connected", type: "boolean", role: "indicator.connected", read: true, write: false, def: false }, native: {} } },
+    { id: "info.version", obj: { type: "state", common: { name: "Adapter-Version", type: "string", role: "text", read: true, write: false }, native: {} } },
+    { id: "info.authLockouts", obj: { type: "state", common: { name: "Login-Sperrliste (intern)", type: "string", role: "json", read: true, write: false, def: "{}" }, native: {} } },
+];
 if (require.main !== module) {
     module.exports = (options) => new MqttPlus(options);
 }

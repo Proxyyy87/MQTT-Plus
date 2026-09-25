@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "mqtt-plus",
-    "version": "1.6.3",
+    "version": "1.6.4",
     "news": {
+      "1.6.4": {
+        "en": "Object structure fixed: parent channels 'info' and 'config' are created, and existing installations receive corrected object definitions (role of info.version)",
+        "de": "Objektstruktur korrigiert: Die Elternkanäle 'info' und 'config' werden angelegt, und bestehende Installationen erhalten korrigierte Objektdefinitionen (Rolle von info.version)",
+        "ru": "Исправлена структура объектов: создаются родительские каналы 'info' и 'config', а существующие установки получают исправленные определения объектов (роль info.version)",
+        "pt": "Estrutura de objetos corrigida: os canais pai 'info' e 'config' são criados e as instalações existentes recebem definições de objetos corrigidas (função de info.version)",
+        "nl": "Objectstructuur gecorrigeerd: de bovenliggende kanalen 'info' en 'config' worden aangemaakt en bestaande installaties krijgen gecorrigeerde objectdefinities (rol van info.version)",
+        "fr": "Structure des objets corrigée : les canaux parents 'info' et 'config' sont créés et les installations existantes reçoivent des définitions d'objets corrigées (rôle de info.version)",
+        "it": "Struttura degli oggetti corretta: vengono creati i canali padre 'info' e 'config' e le installazioni esistenti ricevono definizioni degli oggetti corrette (ruolo di info.version)",
+        "es": "Estructura de objetos corregida: se crean los canales padre 'info' y 'config', y las instalaciones existentes reciben definiciones de objetos corregidas (rol de info.version)",
+        "pl": "Poprawiono strukturę obiektów: tworzone są kanały nadrzędne 'info' i 'config', a istniejące instalacje otrzymują poprawione definicje obiektów (rola info.version)",
+        "uk": "Виправлено структуру об'єктів: створюються батьківські канали 'info' і 'config', а наявні встановлення отримують виправлені визначення об'єктів (роль info.version)",
+        "zh-cn": "修正对象结构：会创建父通道 'info' 和 'config'，现有安装也会获得修正后的对象定义（info.version 的角色）"
+      },
       "1.6.3": {
         "en": "Commands on the /set topic (dual mode) are no longer discarded as redundant when the device was switched elsewhere in the meantime",
         "de": "Befehle auf dem /set-Topic (Dual-Modus) werden nicht mehr als redundant verworfen, wenn das Gerät zwischenzeitlich anderweitig geschaltet wurde",
@@ -139,6 +152,22 @@
   ],
   "objects": [],
   "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "config",
+      "type": "channel",
+      "common": {
+        "name": "Configuration"
+      },
+      "native": {}
+    },
     {
       "_id": "watchdog",
       "type": "state",

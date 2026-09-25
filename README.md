@@ -65,6 +65,10 @@ The adapter is currently in the review process for the official ioBroker reposit
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 1.6.4 (2026-09-25)
+* (proxy) Object structure fixed for the ioBroker review: parent channels `info` and `config` are
+  created, and existing installations receive corrected object definitions (role of `info.version`)
+
 ### 1.6.3 (2026-09-23)
 * (proxy) Dual mode: a command on the `/set` topic is no longer discarded by the value cache. The cache only
   knows the last command, not the device state - after the device was switched elsewhere (button, app), repeating
